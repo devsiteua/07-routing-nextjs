@@ -9,7 +9,7 @@ import {
 } from '@tanstack/react-query';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { createNote, deleteNote, fetchNotes } from '@/lib/api';
+import { createNote, deleteNote, fetchNotes } from '@/lib/api/notes';
 import Modal from '@/components/Modal/Modal';
 import NoteForm from '@/components/NoteForm/NoteForm';
 import NoteList from '@/components/NoteList/NoteList';
@@ -20,7 +20,11 @@ import css from './NotesPage.module.css';
 
 const PER_PAGE = 12;
 
-export default function NotesClient() {
+interface NotesClientProps {
+  tag?: string;
+}
+
+export default function NotesClient({ tag }: NotesClientProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -58,12 +62,13 @@ export default function NotesClient() {
   }, 300);
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['notes', currentPage, searchQuery],
+    queryKey: ['notes', currentPage, searchQuery, tag],
     queryFn: () =>
       fetchNotes({
         page: currentPage,
         perPage: PER_PAGE,
         search: searchQuery,
+        tag,
       }),
     placeholderData: keepPreviousData,
   });

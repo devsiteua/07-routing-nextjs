@@ -10,6 +10,7 @@ export interface FetchNotesParams {
   page: number;
   perPage: number;
   search?: string;
+  tag?: string;
 }
 
 const notehubApi = axios.create({
@@ -23,12 +24,14 @@ export async function fetchNotes({
   page,
   perPage,
   search,
+  tag,
 }: FetchNotesParams): Promise<FetchNotesResponse> {
   const response = await notehubApi.get<FetchNotesResponse>('/notes', {
     params: {
       page,
       perPage,
       search,
+      tag,
     },
   });
 
