@@ -1,30 +1,5 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
+import { redirect } from 'next/navigation';
 
-import { fetchNotes } from '@/lib/api/notes';
-import NotesClient from './Notes.client';
-
-const Notes = async () => {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery({
-    queryKey: ['notes', 1, ''],
-    queryFn: () =>
-      fetchNotes({
-        page: 1,
-        perPage: 12,
-        search: '',
-      }),
-  });
-
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <NotesClient />
-    </HydrationBoundary>
-  );
-};
-
-export default Notes;
+export default function Notes() {
+  redirect('/notes/filter/all');
+}

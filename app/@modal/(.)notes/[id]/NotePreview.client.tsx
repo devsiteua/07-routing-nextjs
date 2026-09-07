@@ -10,7 +10,7 @@ interface NotePreviewProps {
   note: Note;
 }
 
-export default function NotePreview({ note }: NotePreviewProps) {
+export default function NotePreviewClient({ note }: NotePreviewProps) {
   const router = useRouter();
 
   return (

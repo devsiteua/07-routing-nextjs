@@ -1,6 +1,7 @@
 # NoteHub
 
-NoteHub is a note management application built with Next.js App Router and TypeScript.
+NoteHub is a note management application built with Next.js App Router and
+TypeScript.
 
 ## Features
 
